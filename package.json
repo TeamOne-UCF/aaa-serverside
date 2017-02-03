@@ -10,11 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/TeamOne-UCF/aaa-serverside.git"
   },
-<<<<<<< HEAD
-  "author": "Roberto Rolon, Joshua Townsend, David Resh, adding 6 team members here",
-=======
-  "author": "Roberto Rolon, Joshua Townsend, Sumner Wolford, adding 6 team members here",
->>>>>>> origin/master
+  "author": "Roberto Rolon, Joshua Townsend, Sumner Wolford, David Resh, adding 6 team members here",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/TeamOne-UCF/aaa-serverside/issues"
