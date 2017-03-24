@@ -12,6 +12,7 @@ app.get('/', function(req, res, next) {
 
 app.get('/GetCustomer', customerRepository.getCustomers);
 app.post('/GetCustomerByPhoneNumber', customerRepository.getCustomerByPhoneNumber);
+app.post('/GetCustomerByID', customerRepository.getCustomerByID);
 app.post('/InsertCustomer', customerRepository.insertCustomer);
 
 
