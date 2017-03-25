@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5d6b0194-c0cd-4daf-894f-b79c055b942c" name="Default" comment="Call the store procedure to insert a customer and Api now runs - Harold">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/dbConnection.js" afterPath="$PROJECT_DIR$/lib/dbConnection.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="5d6b0194-c0cd-4daf-894f-b79c055b942c" name="Default" comment="Call the store procedure to insert a customer and Api now runs - Harold" />
     <ignored path="aaa-serverside.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
