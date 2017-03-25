@@ -10,21 +10,19 @@ app.get('/', function(req, res, next) {
 
 });
 
+
+/**
+ * Define APP Endpoints here
+ */
+
 app.get('/GetCustomer', customerRepository.getCustomers);
 app.post('/GetCustomerByPhoneNumber', customerRepository.getCustomerByPhoneNumber);
 app.post('/GetCustomerByID', customerRepository.getCustomerByID);
 app.post('/InsertCustomer', customerRepository.insertCustomer);
 
 
-/**
- * Define APP Endpoints here
- */
-
-//NO APIS ADDED SO FAR
-
 //expose function result here
 module.exports = app;
 
 
 
-//

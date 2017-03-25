@@ -4,6 +4,7 @@ var dbConnection = require('../lib/dbConnection');
 module.exports = {
    getCustomers: getCustomers,
    getCustomerByPhoneNumber: getCustomerByPhoneNumber,
+   getCustomerByID: getCustomerByID,
    insertCustomer : insertCustomer
 };
 
@@ -54,32 +55,17 @@ function getCustomerByPhoneNumber(req, res, next) {
 
 function insertCustomer(req, res, next) {
     var newCustomer = req.body;
-    newCustomer.customer_id = "3274";
-    //newCustomer.customer_id = "9278";
-
-    dbConnection.executeInsertStatement("INSERT INTO Customer_Reception_Database.Customer SET ?", newCustomer,
+    dbConnection.executeQuery(
+        "CALL Customer_Reception_Database.InsertCustomer(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        [newCustomer.p_first_name, newCustomer.p_last_name, newCustomer.p_email, newCustomer.p_phone, newCustomer.p_address,
+         newCustomer.p_address_2, newCustomer.p_city, newCustomer.p_state, newCustomer.p_postal_code, newCustomer.p_service_id,
+         newCustomer.p_note, newCustomer.p_alert_email, newCustomer.p_alert_sms
+        ],
         function(err, results) {
             if(err) {
                 return next(err);
-            }else {
-                res.json({statusCode: 200});
+            } else {
+                res.json(results);
             }
-        }
-    )
+        });
 }
-
-/**
- * Private function
- */
-
-function guid() {
-    function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-    return s4() + "" +  s4() + "" +  s4() + "" + s4() + "";
-}
-
-
-//
