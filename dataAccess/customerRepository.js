@@ -52,5 +52,4 @@ function getCustomerByPhoneNumber(req, res, next) {
         }
     )
 }
-
 //
