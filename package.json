@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://TeamOne-UCF@github.com/TeamOne-UCF/aaa-serverside.git"
+    "url": "git+https://github.com/TeamOne-UCF/aaa-serverside.git"
   },
   "author": "Roberto Rolon,Harold Rolon, Joshua Townsend, Sumner Wolford, David Resh, 2 team members left",
   "license": "ISC",
