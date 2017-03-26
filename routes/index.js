@@ -19,6 +19,7 @@ app.get('/GetCustomer', customerRepository.getCustomers);
 app.post('/GetCustomerByPhoneNumber', customerRepository.getCustomerByPhoneNumber);
 app.post('/GetCustomerByID', customerRepository.getCustomerByID);
 app.post('/InsertCustomer', customerRepository.insertCustomer);
+app.get('/GetServiceTypes', customerRepository.getServiceTypes);
 
 
 //expose function result here

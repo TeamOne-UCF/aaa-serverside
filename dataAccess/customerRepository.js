@@ -5,8 +5,22 @@ module.exports = {
    getCustomers: getCustomers,
    getCustomerByPhoneNumber: getCustomerByPhoneNumber,
    getCustomerByID: getCustomerByID,
-   insertCustomer : insertCustomer
+   insertCustomer : insertCustomer,
+    getServiceTypes: getServiceTypes
 };
+
+function getServiceTypes(req, res, next) {
+    var sqlStatement = "SELECT * FROM ??";
+    var parameters = ["Customer_Reception_Database.Service"];
+
+    dbConnection.executeQuery(sqlStatement, parameters, function(error, results) {
+        if(error) {
+            return next(error);
+        } else {
+            res.json(results);
+        }
+    });
+}
 
 function getCustomers(req, res, next) {
     dbConnection.executeQuery("select * from ??",
