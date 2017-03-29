@@ -70,9 +70,9 @@ function getCustomerByPhoneNumber(req, res, next) {
 function insertCustomer(req, res, next) {
     var newCustomer = req.body;
     dbConnection.executeQuery(
-        "CALL Customer_Reception_Database.InsertCustomer(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        "CALL Customer_Reception_Database.InsertCustomer(?,?,?,?,?,?,?,?,?,?,?,?)",
         [newCustomer.p_first_name, newCustomer.p_last_name, newCustomer.p_email, newCustomer.p_phone, newCustomer.p_address,
-            newCustomer.p_address_2, newCustomer.p_city, newCustomer.p_state, newCustomer.p_postal_code, newCustomer.p_service_id,
+            newCustomer.p_address_2, newCustomer.p_city, newCustomer.p_state, newCustomer.p_postal_code,
             newCustomer.p_note, newCustomer.p_alert_email, newCustomer.p_alert_sms
         ],
         function(err, results) {
