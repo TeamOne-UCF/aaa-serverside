@@ -20,6 +20,7 @@ app.post('/GetCustomerByPhoneNumber', customerRepository.getCustomerByPhoneNumbe
 app.post('/GetCustomerByID', customerRepository.getCustomerByID);
 app.post('/InsertCustomer', customerRepository.insertCustomer);
 app.get('/GetServiceTypes', customerRepository.getServiceTypes);
+app.get('/GetQueue',customerRepository.getQueue);
 
 
 //expose function result here

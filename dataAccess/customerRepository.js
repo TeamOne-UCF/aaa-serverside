@@ -6,7 +6,8 @@ module.exports = {
    getCustomerByPhoneNumber: getCustomerByPhoneNumber,
    getCustomerByID: getCustomerByID,
    insertCustomer : insertCustomer,
-    getServiceTypes: getServiceTypes
+   getServiceTypes: getServiceTypes,
+   getQueue: getQueue
 };
 
 function getServiceTypes(req, res, next) {
@@ -20,6 +21,19 @@ function getServiceTypes(req, res, next) {
             res.json(results);
         }
     });
+}
+
+function getQueue(req, res, next) {
+	dbConnection.executeQuery("select * from ??",
+		["Customer_Reception_Database.Queue"],
+		function (error, results) {
+			if (error) {
+				return next(error);
+			} else {
+				res.json(results);
+			}
+		}
+	)
 }
 
 function getCustomers(req, res, next) {
