@@ -34,4 +34,6 @@ var server = application.listen(application.get('port'), function() {
     console.log('Express server listening on port ' + server.address().port);
 });
 
+// Used for testing purposes
+module.exports = server;
 //
