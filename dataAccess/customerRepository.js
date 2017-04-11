@@ -25,16 +25,15 @@ function getServiceTypes(req, res, next) {
 }
 
 function getQueue(req, res, next) {
-	dbConnection.executeQuery("select * from ??",
-		["Customer_Reception_Database.Queue"],
+	dbConnection.executeQuery("CALL Customer_Reception_Database.GetQueue",
+		[],
 		function (error, results) {
 			if (error) {
 				return next(error);
 			} else {
 				res.json(results);
 			}
-		}
-	)
+		});
 }
 
 function getCustomers(req, res, next) {
@@ -46,8 +45,7 @@ function getCustomers(req, res, next) {
             }else {
                 res.json(results);
             }
-        }
-    )
+        });
 }
 
 function getCustomerByID(req, res, next) {
@@ -61,8 +59,7 @@ function getCustomerByID(req, res, next) {
 			} else {
 				res.json(results);
 			}
-		}
-	)
+		});
 }
 
 function getCustomerByPhoneNumber(req, res, next) {
@@ -77,8 +74,7 @@ function getCustomerByPhoneNumber(req, res, next) {
             }else {
                 res.json(results);
             }
-        }
-    )
+        });
 }
 
 function insertCustomer(req, res, next) {
