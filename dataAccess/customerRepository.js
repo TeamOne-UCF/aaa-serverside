@@ -100,5 +100,15 @@ function insertCustomer(req, res, next) {
 
 function insertCustomerToQueue(req, res, next) {
     var customerToQueue = req.body;
+    dbConnection.executeQuery(
+        "CALL Customer_Reception_Database.InsertQueue(?,?,?)",
+        [customerToQueue.p_customer_id, customerToQueue.p_service_id, customerToQueue.p_note],
+        function(err, results) {
+            if(err) {
+                return next(err);
+            } else {
+                res.json(results);
+            }
+        });
 }
 
