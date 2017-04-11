@@ -21,7 +21,7 @@ app.post('/GetCustomerByID', customerRepository.getCustomerByID);
 app.post('/InsertCustomer', customerRepository.insertCustomer);
 app.get('/GetServiceTypes', customerRepository.getServiceTypes);
 app.get('/GetQueue',customerRepository.getQueue);
-
+app.post('/InsertCustomerToQueue', customerRepository.insertCustomerToQueue);
 
 //expose function result here
 module.exports = app;
