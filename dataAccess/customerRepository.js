@@ -51,7 +51,6 @@ function getCustomers(req, res, next) {
 
 function getCustomerByID(req, res, next) {
 	var customerSearchCriteria = req.body;
-	
 	dbConnection.executeQuery(
 		"select * from ?? where customer_id = ?",
 		["Customer_Reception_Database.Customer", customerSearchCriteria.customer_id],
