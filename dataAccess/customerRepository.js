@@ -8,7 +8,8 @@ module.exports = {
    insertCustomer : insertCustomer,
    getServiceTypes: getServiceTypes,
    getQueue: getQueue,
-   insertCustomerToQueue: insertCustomerToQueue
+   insertCustomerToQueue: insertCustomerToQueue,
+   updateCustomer: updateCustomer
 };
 
 function getServiceTypes(req, res, next) {
@@ -92,6 +93,32 @@ function insertCustomer(req, res, next) {
                 res.json(results);
             }
         });
+}
+
+function updateCustomer(req, res, next) {
+		var updatedCustomer = req.body;
+		
+		dbConnection.executeQuery("UPDATE ?? SET first_name = ?, last_name = ?, email = ?, phone = ?, address = ?, city = ?, state = ?, postal_code = ?, alert_email = ?, alert_sms = ? WHERE customer_id = ?;",
+			["Customer_Reception_Database.Customer",
+				updatedCustomer.p_first_name, 
+				updatedCustomer.p_last_name, 
+				updatedCustomer.p_email, 
+				updatedCustomer.p_phone, 
+				updatedCustomer.p_address,
+				updatedCustomer.p_city, 
+				updatedCustomer.p_state, 
+				updatedCustomer.p_postal_code,
+				updatedCustomer.p_alert_email, 
+				updatedCustomer.p_alert_sms,
+				updateCustomer.p_customer_id, 
+			],
+			function(err, results) {
+				if(err)
+					return next(err);
+				else
+					res.json(results);
+			}
+		);
 }
 
 function insertCustomerToQueue(req, res, next) {
