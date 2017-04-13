@@ -1,5 +1,5 @@
 var dbConnection = require('../lib/dbConnection');
-
+var twilio = require('../lib/twilio');
 
 module.exports = {
    getCustomers: getCustomers,
@@ -130,13 +130,16 @@ function insertCustomerToQueue(req, res, next) {
             if(err) {
                 return next(err);
             } else {
-
-
-                //insert sms code here
-                // the customerToQueue.first_name, customerToQueue.last_name, customerToQueue.phone
-
+				// Notifies the customer via sms message
+				sendCustomerSms(customerToQueue.p_first_name, customerToQueue.p_phone);
                 res.json(results);
             }
         });
+}
+
+
+function sendCustomerSms(firstName, phone) {
+	var sms = new twilio(phone, firstName, 'www.aaa.com');
+	sms.sendSms();
 }
 
