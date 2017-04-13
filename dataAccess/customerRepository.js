@@ -90,9 +90,6 @@ function insertCustomer(req, res, next) {
             if(err) {
                 return next(err);
             } else {
-
-                //inset sms code here
-
                 res.json(results);
             }
         });
@@ -133,6 +130,11 @@ function insertCustomerToQueue(req, res, next) {
             if(err) {
                 return next(err);
             } else {
+
+
+                //insert sms code here
+                // the customerToQueue.first_name, customerToQueue.last_name, customerToQueue.phone
+
                 res.json(results);
             }
         });
