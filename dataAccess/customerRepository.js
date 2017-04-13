@@ -90,6 +90,9 @@ function insertCustomer(req, res, next) {
             if(err) {
                 return next(err);
             } else {
+
+                //inset sms code here
+
                 res.json(results);
             }
         });
