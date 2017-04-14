@@ -121,6 +121,7 @@ function updateCustomer(req, res, next) {
 		);
 }
 
+
 function insertCustomerToQueue(req, res, next) {
     var customerToQueue = req.body;
     dbConnection.executeQuery(
