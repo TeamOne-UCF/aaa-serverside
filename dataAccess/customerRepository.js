@@ -9,12 +9,29 @@ module.exports = {
    getServiceTypes: getServiceTypes,
    getQueue: getQueue,
    insertCustomerToQueue: insertCustomerToQueue,
-   updateCustomer: updateCustomer
+   updateCustomer: updateCustomer,
+   deleteQueueByCustomerId: deleteQueueByCustomerId,
+   getQueueByServiceId: getQueueByServiceId
+   
 };
 
 function getServiceTypes(req, res, next) {
     var sqlStatement = "SELECT * FROM ??";
     var parameters = ["Customer_Reception_Database.Service"];
+
+    dbConnection.executeQuery(sqlStatement, parameters, function(error, results) {
+        if(error) {
+            return next(error);
+        } else {
+            res.json(results);
+        }
+    });
+}
+
+function getQueueByServiceId(req, res, next) {
+	var service = req.body;
+    var sqlStatement = "SELECT a.type, COUNT(b.service_id) AS QueueCount FROM ?? a, ?? b WHERE a.service_id = b.service_id AND a.service_id = ?;";
+    var parameters = ["Customer_Reception_Database.Service", "Customer_Reception_Database.Queue", service.service_id];
 
     dbConnection.executeQuery(sqlStatement, parameters, function(error, results) {
         if(error) {
@@ -121,6 +138,20 @@ function updateCustomer(req, res, next) {
 		);
 }
 
+function deleteQueueByCustomerId(req, res, next) {
+	var deleteQueue = req.body;
+	
+	dbConnection.executeQuery(
+        "CALL Customer_Reception_Database.DeleteQueueByCustomerID(?)",
+        [deleteQueue.customer_id],
+        function(err, results) {
+            if(err) {
+                return next(err);
+            } else {
+                res.json(results);
+            }
+        });
+}
 
 function insertCustomerToQueue(req, res, next) {
     var customerToQueue = req.body;
@@ -132,14 +163,14 @@ function insertCustomerToQueue(req, res, next) {
                 return next(err);
             } else {
 				// Notifies the customer via sms message
-				sendCustomerSms(customerToQueue.p_first_name, customerToQueue.p_phone);
+				sendCustomerSms(customerToQueue.p_first_name, customerToQueue.p_phone, customerToQueue.p_service_id);
                 res.json(results);
             }
         });
 }
 
 
-function sendCustomerSms(firstName, phone) {
+function sendCustomerSms(firstName, phone, serviceId) {
 	var sms = new twilio(phone, firstName, 'www.aaa.com');
 	sms.sendSms();
 }

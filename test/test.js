@@ -45,6 +45,11 @@
            p_service_id: 1,
            p_note: 'Test test test test'}
             
+	var data = {
+	  customer_id: '5309102717143589',
+	  phone: newCustomer.p_phone,
+	  service_id: 1,
+	  type: 'Insurance'};		
   
 chai.use(chaiHttp);
 
@@ -60,9 +65,7 @@ chai.use(chaiHttp);
         });
    });
 	
-  var data = {
-	  customer_id: '5309102717143589',
-	  phone: newCustomer.p_phone};
+  
   describe('/POST/:', () => {
       it('it should GET a customer by the given phone number', (done) => {
             chai.request(server)
@@ -109,6 +112,36 @@ chai.use(chaiHttp);
 				});
         });
     });
+   
+   describe('/POST/: ServiceId', () => {
+      it('it should GET a service type and the count of the same service in the queue', (done) => {
+            chai.request(server)
+            .post('/GetQueueByServiceId')
+            .send(data)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+			  assert.equal(data.type, res.body[0].type);
+				console.log(res.body[0]);
+              done();
+            });
+        });
+     });
+	 
+	
+	describe('/POST/: Delete Queue', () => {
+		it('it should POST and dlete a queue entry from the DB', (done) => {
+			chai.request(server)
+				.post('/DeleteQueueByCustomerId')
+				.send(data)
+    			.end((err, res) => {
+					res.should.have.status(200);
+					//res.body.should.be.a('array');
+					done();
+				});
+       });
+    });
+	 
 	 
 	// describe('/POST/: Updated Customer', () => {
 	//	it('it should update a customer', (done) => {
