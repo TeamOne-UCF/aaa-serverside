@@ -148,6 +148,7 @@ function deleteQueueByCustomerId(req, res, next) {
             if(err) {
                 return next(err);
             } else {
+				sendAgentReadySms(deleteQueue.customer, deleteQueue.phone);
                 res.json(results);
             }
         });
@@ -171,7 +172,17 @@ function insertCustomerToQueue(req, res, next) {
 
 
 function sendCustomerSms(firstName, phone, serviceId) {
-	var sms = new twilio(phone, firstName, 'www.aaa.com');
+	var smsBody = 'Hello ' + firstName + '\n\nWe will notify you when an agent is ready. ' +
+		'Please click the link to view the wait details www.aaa.com' + '.';
+	var sms = new twilio(phone, firstName, smsBody);
 	sms.sendSms();
 }
 
+function sendAgentReadySms(customerName, phone) {
+	var firstName = customerName.split(" ");
+	
+	var smsBody = 'Hello ' + firstName[0] + '\n\nAn agent is ready to see you.';
+	
+	var sms = new twilio(phone, firstName, smsBody);
+	sms.sendSms();
+}
