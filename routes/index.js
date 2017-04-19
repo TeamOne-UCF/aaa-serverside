@@ -25,6 +25,7 @@ app.post('/InsertCustomerToQueue', customerRepository.insertCustomerToQueue);
 app.post('/UpdateCustomer', customerRepository.updateCustomer);
 app.post('/DeleteQueueByCustomerId', customerRepository.deleteQueueByCustomerId);
 app.post('/GetQueueByServiceId', customerRepository.getQueueByServiceId);
+app.get('/GetQueueByCustomerId/:id', customerRepository.getQueueByCustomerId);
 //expose function result here
 module.exports = app;
 

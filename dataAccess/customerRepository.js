@@ -11,9 +11,32 @@ module.exports = {
    insertCustomerToQueue: insertCustomerToQueue,
    updateCustomer: updateCustomer,
    deleteQueueByCustomerId: deleteQueueByCustomerId,
-   getQueueByServiceId: getQueueByServiceId
+   getQueueByServiceId: getQueueByServiceId,
+    getQueueByCustomerId: getQueueByCustomerId
    
 };
+
+
+function getQueueByCustomerId(req,res,next) {
+    var queryParam = req.params;
+    var customerId = queryParam.id;
+
+    var sqlStatement =
+        "SELECT Q.queue_id, Q.customer_id, C.first_name, C.last_name, C.phone, S.type, Q.position " +
+        "FROM Customer_Reception_Database.Queue Q INNER JOIN Customer_Reception_Database.Service S ON Q.service_id = S.service_id " +
+        "INNER JOIN Customer_Reception_Database.Customer C ON Q.customer_id = C.customer_id " +
+        "WHERE Q.customer_id = ? ";
+
+    var parameters = [customerId];
+
+    dbConnection.executeQuery(sqlStatement, parameters, function(error, results) {
+        if(error) {
+            return next(error);
+        } else {
+            res.json(results);
+        }
+    });
+}
 
 function getServiceTypes(req, res, next) {
     var sqlStatement = "SELECT * FROM ??";
@@ -167,21 +190,25 @@ function insertCustomerToQueue(req, res, next) {
     var customerToQueue = req.body;
     dbConnection.executeQuery(
         "CALL Customer_Reception_Database.InsertQueue(?,?,?)",
-        [customerToQueue.p_customer_id, customerToQueue.p_service_id, customerToQueue.p_note],
+        [   customerToQueue.p_customer_id,
+            customerToQueue.p_service_id,
+            customerToQueue.p_note],
         function(err, results) {
             if(err) {
                 return next(err);
             } else {
+                res.json(results);
+                return;
 				// Notifies the customer via sms message
-				sendCustomerSms(customerToQueue.p_first_name, customerToQueue.p_phone, customerToQueue.p_service_id);
+				sendCustomerSms(customerToQueue.p_first_name, customerToQueue.p_phone, customerToQueue.p_customer_id);
                 res.json(results);
             }
         });
 }
 
-function sendCustomerSms(firstName, phone, serviceId) {
+function sendCustomerSms(firstName, phone, customerId) {
 	var smsBody = 'Hello ' + firstName + '\n\nWe will notify you when an agent is ready. ' +
-		'Please click the link to view the wait details www.aaa.com' + '.';
+		'Please click the link to view the wait details www.aaa.com/appLayout/customerQueue/' + customerId + " .";
 	var sms = new twilio(phone, firstName, smsBody);
 	sms.sendSms();
 }
